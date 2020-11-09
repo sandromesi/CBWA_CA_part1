@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const hostname = '0.0.0.0';
 const port = process.env.PORT || 3000;
 
-const app = (module.exports = express());
-
 const projectsController = require('./controllers/projects')();
 const issuesController = require('./controllers/issues')();
 const usersController = require('./controllers/users')();
@@ -13,14 +11,7 @@ const commentsController = require('./controllers/comments')();
 
 const users = require('./models/users')();
 
-// logging
-app.use((req, res, next) => {
-    // Display log  for requests
-    console.log('[%s] %s -- %s', new Date(), req.method, req.url);
-    next();
-});
-
-/*
+const app = (module.exports = express());
 
 // logging
 app.use(async (req, res, next) => {
@@ -37,11 +28,11 @@ app.use(async (req, res, next) => {
         code: "xxx", //Some useful error code
     };
 
-    const suppiedKey = req.headers["x-api-key"];
+    const suppliedKey = req.headers["x-api-key"];
     req.headers["x-forward-for"] || req.connection.remoteAddress;
 
     // Check Pre-shared key
-    if (!suppiedKey) {
+    if (!suppliedKey) {
         console.log(
             "   [%s] FAILED AUTHENTICATION -- %s, No Key Supplied",
             new Date(),
@@ -51,7 +42,7 @@ app.use(async (req, res, next) => {
         return res.status(401).json(FailedAuthMessage);
     }
 
-    const user = await users.getByKey(suppiedKey);
+    const user = await users.getByKey(suppliedKey);
     if (!user) {
         console.log(
             "   [%s] FAILED AUTHENTICATION -- %s, Bad Key Supplied",
@@ -63,8 +54,6 @@ app.use(async (req, res, next) => {
     }
     next();
 });
-
-*/
 
 app.use(bodyParser.json());
 
