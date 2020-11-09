@@ -14,6 +14,15 @@ const commentsController = require('./controllers/comments')();
 const users = require('./models/users')();
 
 // logging
+app.use((req, res, next) => {
+    // Display log  for requests
+    console.log('[%s] %s -- %s', new Date(), req.method, req.url);
+    next();
+});
+
+/*
+
+// logging
 app.use(async (req, res, next) => {
     //Display log  for requests
     console.log("[%s] %s -- %s", new Date(), req.method, req.url);
@@ -54,6 +63,8 @@ app.use(async (req, res, next) => {
     }
     next();
 });
+
+*/
 
 app.use(bodyParser.json());
 
