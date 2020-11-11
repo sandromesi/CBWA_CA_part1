@@ -7,12 +7,18 @@ module.exports = () => {
     const getByKey = async (key) => {
         console.log( "------------- models/users/getByKeyFunction" )
         console.log( "------------- before try" );
+        console.log( key );
         try {
             if (!key) {
                 console.log(" ------------- 01: MISSING KEY");
                 return null;
             }
-            const users = await db.get(COLLECTION, { key });
+            console.log( "------------- before const users" );
+            const users = await db.get(COLLECTION, { key : key });
+            console.log( "------------- after const users" );
+            console.log( "------------- users" );
+            console.log( users );
+
             if (users.length !== 1) {
                 console.log(" ------------- 02: BAD KEY");
                 return null;

@@ -51,3 +51,38 @@ new password
 
 #######################  HEROKU  #######################
 
+2020-11-11T19:37:36.211119+00:00 app[web.1]: ------------- index/before logging app.use
+2020-11-11T19:37:36.211120+00:00 app[web.1]: ------------- index/after logging app.use
+2020-11-11T19:37:36.211120+00:00 app[web.1]: ------------- index/before check key app.use
+2020-11-11T19:37:36.211121+00:00 app[web.1]: ------------- index/after check key app.use
+2020-11-11T19:37:36.220860+00:00 app[web.1]: Server running at http://0.0.0.0:21818/
+2020-11-11T19:37:36.729460+00:00 heroku[web.1]: State changed from starting to up
+2020-11-11T19:38:42.606267+00:00 heroku[router]: at=info method=GET path="/projects" host=dreadful-plague-68518.herokuapp.com request_id=ae6c5998-d0ac-41b9-9a09-4be531ee38dd fwd="95.44.171.81" dyno=web.1 connect=1ms service=39ms status=500 bytes=237 protocol=https
+2020-11-11T19:38:42.569191+00:00 app[web.1]: [2020-11-11T19:38:42.567Z] GET -- /projects
+2020-11-11T19:38:42.569508+00:00 app[web.1]: ------------- index/before suppliedKey
+2020-11-11T19:38:42.569600+00:00 app[web.1]: ------------- suppliedKey
+2020-11-11T19:38:42.569680+00:00 app[web.1]: new password
+2020-11-11T19:38:42.569760+00:00 app[web.1]: ------------- index/before clientIp
+2020-11-11T19:38:42.569849+00:00 app[web.1]: ------------- clientIp
+2020-11-11T19:38:42.569934+00:00 app[web.1]: 95.44.171.81
+2020-11-11T19:38:42.570022+00:00 app[web.1]: ------------- index/before Check Pre-shared key
+2020-11-11T19:38:42.570092+00:00 app[web.1]: ------------- index/before user
+2020-11-11T19:38:42.570254+00:00 app[web.1]: ------------- models/users/getByKeyFunction
+2020-11-11T19:38:42.570316+00:00 app[web.1]: ------------- before try
+2020-11-11T19:38:42.577055+00:00 app[web.1]: ------------- USERS GETBYKEY ERROR
+2020-11-11T19:38:42.577179+00:00 app[web.1]: ------------- user
+2020-11-11T19:38:42.579328+00:00 app[web.1]: {
+2020-11-11T19:38:42.579331+00:00 app[web.1]: error: TypeError: Cannot read property 'split' of null
+2020-11-11T19:38:42.579332+00:00 app[web.1]: at parseSrvConnectionString (/app/node_modules/mongodb/lib/core/uri_parser.js:44:23)
+2020-11-11T19:38:42.579332+00:00 app[web.1]: at parseConnectionString (/app/node_modules/mongodb/lib/core/uri_parser.js:587:12)
+2020-11-11T19:38:42.579333+00:00 app[web.1]: at connect (/app/node_modules/mongodb/lib/operations/connect.js:282:3)
+2020-11-11T19:38:42.579334+00:00 app[web.1]: at /app/node_modules/mongodb/lib/mongo_client.js:224:5
+2020-11-11T19:38:42.579334+00:00 app[web.1]: at maybePromise (/app/node_modules/mongodb/lib/utils.js:665:3)
+2020-11-11T19:38:42.579334+00:00 app[web.1]: at MongoClient.connect (/app/node_modules/mongodb/lib/mongo_client.js:220:10)
+2020-11-11T19:38:42.579335+00:00 app[web.1]: at Function.MongoClient.connect (/app/node_modules/mongodb/lib/mongo_client.js:443:22)
+2020-11-11T19:38:42.579335+00:00 app[web.1]: at /app/db.js:32:25
+2020-11-11T19:38:42.579335+00:00 app[web.1]: at new Promise (<anonymous>)
+2020-11-11T19:38:42.579336+00:00 app[web.1]: at Object.get (/app/db.js:31:16)
+2020-11-11T19:38:42.579336+00:00 app[web.1]: }
+2020-11-11T19:38:42.595575+00:00 app[web.1]: inside projects model
+2020-11-11T19:38:42.596418+00:00 app[web.1]: ------------- GET PROJECTS ERROR
