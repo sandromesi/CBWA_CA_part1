@@ -65,7 +65,7 @@ module.exports = () => {
 
             ]);
             console.log(issues);
-            return issues;
+            return  issues;
 
         } catch (ex) {
             console.log(" ------------- ISSUES AGGREGATEWITHPROJECT ERROR")

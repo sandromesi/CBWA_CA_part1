@@ -26,7 +26,11 @@ module.exports = () => {
         const name = req.body.name;
         const email = req.body.email;
         const key = req.body.key;
-        const result = await users.add(name, email, key);
+
+        const {result , error} = await users.add(name, email, key);
+        if (error) {
+            return res.status(500).json({ error });
+        }
         res.json(result);
     }
 

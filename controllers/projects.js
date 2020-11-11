@@ -25,8 +25,8 @@ module.exports = () => {
         const name = req.body.name;
         const description = req.body.description;
 
-        const {result, error} = await projects.add(slug, name, description);
-        if(error){
+        const { result, error } = await projects.add(slug, name, description);
+        if (error) {
             return res.status(500).json({ error });
         }
         res.json(result);

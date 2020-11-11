@@ -8,7 +8,7 @@
     "start": "node index.js",
     "start:dev": "nodemon index.js"
   },
-  "author": "",
+  "author": "Alessandro_Siqueira",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

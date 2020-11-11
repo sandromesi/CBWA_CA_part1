@@ -119,11 +119,33 @@ module.exports = () => {
         });
     };
 
+    const validate = (validate) => {
+        return new Promise((resolve, reject) => {
+            MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
+                if (err) {
+                    console.log(err)
+                    return reject("=== validate::MongoClient.connect")
+                }
+                const db = client.db(DB_NAME);
+                db.command(validate, (err, result) => {
+                    if (err) {
+                        console.log(" === validate::collection.findOneAndUpdate")
+                        console.log(err)
+                        return reject(err)
+                    }
+                    resolve(result);
+                    client.close();
+                });
+            });
+        });
+    };
+
     return {
         count,
         get,
         add,
         aggregate,
         update,
+        validate,
     };
 };

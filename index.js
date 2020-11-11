@@ -14,7 +14,7 @@ const users = require('./models/users')();
 const app = (module.exports = express());
 
 // logging
-app.use(async (req, res, next) => {
+app.use((req, res, next) => {
     //Display log  for requests
     console.log("[%s] %s -- %s", new Date(), req.method, req.url);
     next();
@@ -29,7 +29,8 @@ app.use(async (req, res, next) => {
     };
 
     const suppliedKey = req.headers["x-api-key"];
-    req.headers["x-forward-for"] || req.connection.remoteAddress;
+    const clientIp =
+    req.headers["x-forwarded-for"] || req.connection.remoteAddress;
 
     // Check Pre-shared key
     if (!suppliedKey) {

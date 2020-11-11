@@ -6,12 +6,12 @@ module.exports = () => {
     const getByKey = async (key) => {
         try {
             if (!key) {
-                console.log("   01: Missing key");
+                console.log(" ------------- 01: MISSING KEY");
                 return null;
             }
             const users = await db.get(COLLECTION, { key });
             if (users.length !== 1) {
-                console.log("   02: Bad key");
+                console.log(" ------------- 02: BAD KEY");
                 return null;
             }
             return users[0];
