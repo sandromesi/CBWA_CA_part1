@@ -1,0 +1,53 @@
+#######################  LOCALLY  #######################
+
+------------- models/users/ before getByKey Function
+------------- models/users/ after getByKey Function
+------------- models/users/ before getByKey Function
+------------- models/users/ after getByKey Function
+------------- index/before logging app.use
+------------- index/after logging app.use
+------------- index/before check key app.use
+------------- index/after check key app.use
+Server running at http://0.0.0.0:3000/
+[2020-11-11T19:30:35.852Z] GET -- /projects
+------------- index/before suppliedKey
+------------- suppliedKey
+new password
+------------- index/before clientIp
+------------- clientIp
+127.0.0.1
+------------- index/before Check Pre-shared key
+------------- index/before user
+------------- models/users/getByKeyFunction
+------------- before try
+------------- models/users/getByKey Function
+------------- before return
+------------- users[0].key
+new password
+------------- user
+new password
+   inside projects model
+[
+  {
+    _id: 5f932817c9d1e9a8a89b5c2a,
+    slug: 'BOOKS',
+    name: 'Book Store',
+    description: 'Project made in class'
+  },
+  {
+    _id: 5f93295bc9d1e9a8a89b5c2b,
+    slug: 'BUGS',
+    name: 'Bug Tracker',
+    description: 'Project made for the first part of the CBWA CA'
+  },
+  {
+    _id: 5f9d5afaeb3db62850bafcbc,
+    slug: 'NEW',
+    name: 'Brand new project',
+    description: 'this is a new project'
+  }
+]
+
+
+#######################  HEROKU  #######################
+

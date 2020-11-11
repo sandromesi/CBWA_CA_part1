@@ -2,8 +2,11 @@ const db = require("../db")();
 const COLLECTION = "users";
 
 module.exports = () => {
-    ////////////////////// Get user key //////////////////////    
+    ////////////////////// Get user key ////////////////////// 
+    console.log( "------------- models/users/ before getByKey Function" );   
     const getByKey = async (key) => {
+        console.log( "------------- models/users/getByKeyFunction" )
+        console.log( "------------- before try" );
         try {
             if (!key) {
                 console.log(" ------------- 01: MISSING KEY");
@@ -14,12 +17,18 @@ module.exports = () => {
                 console.log(" ------------- 02: BAD KEY");
                 return null;
             }
-            return users[0].key;
+            console.log( "------------- models/users/getByKey Function" );
+            console.log( "------------- before return" );
+            console.log( "------------- users[0].key" );
+            console.log(users[0].key);
+            return users[0].key;  
         } catch (ex) {
             console.log(" ------------- USERS GETBYKEY ERROR")
             return { error: ex }
         }
     };
+
+    console.log( "------------- models/users/ after getByKey Function" );
     ////////////////////// Get all users and individual users by email ////////////////////// 
     const get = async (email = null) => {
         console.log('   inside users model');

@@ -13,12 +13,16 @@ const users = require('./models/users')();
 
 const app = (module.exports = express());
 
+console.log( "------------- index/before logging app.use" );
 // logging
 app.use((req, res, next) => {
     //Display log  for requests
     console.log("[%s] %s -- %s", new Date(), req.method, req.url);
     next();
 });
+
+console.log( "------------- index/after logging app.use" );
+console.log( "------------- index/before check key app.use" );
 
 app.use(async (req, res, next) => {
     const FailedAuthMessage = {
@@ -27,10 +31,16 @@ app.use(async (req, res, next) => {
         message: "Go Away!",
         code: "xxx", //Some useful error code
     };
-
+    console.log( "------------- index/before suppliedKey" );
     const suppliedKey = req.headers["x-api-key"];
+    console.log( "------------- suppliedKey" );
+    console.log( suppliedKey );
+    console.log( "------------- index/before clientIp" );
     const clientIp =
-    req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+    console.log( "------------- clientIp" );
+    console.log( clientIp );
+    console.log( "------------- index/before Check Pre-shared key" );
 
     // Check Pre-shared key
     if (!suppliedKey) {
@@ -43,6 +53,7 @@ app.use(async (req, res, next) => {
         return res.status(401).json(FailedAuthMessage);
     }
 
+    console.log( "------------- index/before user" );
     const user = await users.getByKey(suppliedKey);
     if (!user) {
         console.log(
@@ -53,8 +64,11 @@ app.use(async (req, res, next) => {
         FailedAuthMessage.code = "02";
         return res.status(401).json(FailedAuthMessage);
     }
+    console.log( "------------- user" );
+    console.log( user );
     next();
 });
+console.log( "------------- index/after check key app.use" );
 
 app.use(bodyParser.json());
 
