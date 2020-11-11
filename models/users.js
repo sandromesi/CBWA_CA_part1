@@ -14,7 +14,7 @@ module.exports = () => {
                 console.log(" ------------- 02: BAD KEY");
                 return null;
             }
-            return users[0];
+            return users[0].key;
         } catch (ex) {
             console.log(" ------------- USERS GETBYKEY ERROR")
             return { error: ex }
