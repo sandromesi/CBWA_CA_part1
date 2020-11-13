@@ -12,7 +12,7 @@ module.exports = () => {
                 return { issuesList: issues };
             } catch (ex) {
                 console.log(" ------------- ISSUES GET ERROR")
-                return { error: ex }
+                return { error: "Issue doesn't exists!" }
             }
         }
         try {
@@ -20,13 +20,17 @@ module.exports = () => {
             console.log(issues);
             return { issue: issues };
         } catch (ex) {
-            return { error: ex }
+            return { error: "Issue doesn't exists!" }
         }
     };
 
     ////////////////////// Add new issues to a project individually ////////////////////// 
     const add = async (projectSlug, title, description) => {
         try {
+            if (!title || !description) {
+                return { error: "Title and description are required!" }
+            }
+
             const issueCount = await db.count(COLLECTION);
             const project = await db.get("projects", { slug: projectSlug })
 
@@ -43,14 +47,13 @@ module.exports = () => {
 
         } catch (ex) {
             console.log(" ------------- ISSUES ADD ERROR")
-            return { error: ex }
+            return { error: "Issue doesn't exists!" }
         }
     };
     ////////////////////// Get all issues for a project ////////////////////// 
     const aggregateWithProject = async (projectSlug) => {
-
         try {
-            const issues = await db.aggregate("projects", [
+            const issue = await db.aggregate("projects", [
                 {
                     $match: { slug: projectSlug },
                 },
@@ -64,12 +67,11 @@ module.exports = () => {
                 },
 
             ]);
-            console.log(issues);
-            return  issues;
+            return issue;
 
         } catch (ex) {
             console.log(" ------------- ISSUES AGGREGATEWITHPROJECT ERROR")
-            return { error: ex }
+            return { error: "Project or issue doesn't exists!" }
         }
     };
 

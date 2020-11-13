@@ -13,16 +13,12 @@ const users = require('./models/users')();
 
 const app = (module.exports = express());
 
-console.log( "------------- index/before logging app.use" );
 // logging
 app.use((req, res, next) => {
     //Display log  for requests
     console.log("[%s] %s -- %s", new Date(), req.method, req.url);
     next();
 });
-
-console.log( "------------- index/after logging app.use" );
-console.log( "------------- index/before check key app.use" );
 
 app.use(async (req, res, next) => {
     const FailedAuthMessage = {
@@ -31,18 +27,12 @@ app.use(async (req, res, next) => {
         message: "Go Away!",
         code: "xxx", //Some useful error code
     };
-    console.log( "------------- index/before suppliedKey" );
     const suppliedKey = req.headers["x-api-key"];
-    console.log( "------------- suppliedKey" );
-    console.log( suppliedKey );
-    console.log( "------------- index/before clientIp" );
+    const suppliedEmail = req.headers["x-api-email"];
     const clientIp =
     req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-    console.log( "------------- clientIp" );
-    console.log( clientIp );
-    console.log( "------------- index/before Check Pre-shared key" );
 
-    // Check Pre-shared key
+    // Check key
     if (!suppliedKey) {
         console.log(
             "   [%s] FAILED AUTHENTICATION -- %s, No Key Supplied",
@@ -53,22 +43,29 @@ app.use(async (req, res, next) => {
         return res.status(401).json(FailedAuthMessage);
     }
 
-    console.log( "------------- index/before user" );
-    const user = await users.getByKey(suppliedKey);
+    // Check email
+    if (!suppliedEmail) {
+        console.log(
+            "   [%s] FAILED AUTHENTICATION -- %s, No Email Supplied",
+            new Date(),
+            clientIp
+        );
+        FailedAuthMessage.code = "01";
+        return res.status(401).json(FailedAuthMessage);
+    }
+
+    const user = await users.getByKey(suppliedKey , suppliedEmail);
     if (!user) {
         console.log(
-            "   [%s] FAILED AUTHENTICATION -- %s, Bad Key Supplied",
+            "   [%s] FAILED AUTHENTICATION -- %s, Bad Key or Email Supplied",
             new Date(),
             clientIp
         );
         FailedAuthMessage.code = "02";
         return res.status(401).json(FailedAuthMessage);
     }
-    console.log( "------------- user" );
-    console.log( user );
     next();
 });
-console.log( "------------- index/after check key app.use" );
 
 app.use(bodyParser.json());
 
@@ -119,8 +116,6 @@ app.get('/issues/:projectSlug-:id/comments', commentsController.getController);
 app.get('/issues/:projectSlug-:id/comments/:commentId', commentsController.getByID);
 //Add new comments to an issue
 app.post('/issues/:projectSlug-:id/comments', commentsController.postController);
-
-
 
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);

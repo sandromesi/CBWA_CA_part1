@@ -2,22 +2,29 @@ const db = require('../db')();
 const COLLECTION = "issues";
 const ObjectID = require('mongodb').ObjectID;
 
+
 module.exports = () => {
     ////////////////////// Get all comments for an issue ////////////////////// 
     const get = async (issueNumber) => {
         try {
             const issues = await db.get(COLLECTION, { issueNumber: issueNumber });
-            console.log(issues[0].comments)
-            return issues[0].comments;
+            return { commentsList: issues[0].comments };
         } catch (ex) {
             console.log(" ------------- COMMENTS GET ERROR")
-            return { error: ex }
+            return { error: "Comments doesn't exist!" }
         }
     };
 
     ////////////////////// Get individual comments for an issue //////////////////////     
     const getById = async (projectSlug, id, commentId) => {
         try {
+            if (!projectSlug) {
+                return { error: "A valid project slug is required!" }
+            }
+
+            if (!projectSlug || !id || !commentId) {
+                return { error: "Project slug, issue id and comment id are required!" }
+            }
             const comment = await db.aggregate(COLLECTION, [
                 { $match: { issueNumber: { projectSlug: projectSlug, id: id } } },
                 {
@@ -36,19 +43,25 @@ module.exports = () => {
                             },
                         },
                     },
-                },
-            ]);
+                }])
+
             console.log(comment)
             return comment;
         } catch (ex) {
+            console.log(ex)
             console.log(" ------------- COMMENTS GETBYID ERROR")
-            return { error: ex }
+            return { error: "Comment doesn't exist!" }
         }
     };
 
     ////////////////////// Add new comments to an issue ////////////////////// 
     const add = async (issueNumber, text, author) => {
         try {
+
+            if (!text) {
+                return { error: "Some text, is required!" }
+            }
+
             const commentsCount = await db.aggregate(COLLECTION,
                 [
                     { $match: { issueNumber: issueNumber } },
@@ -78,11 +91,15 @@ module.exports = () => {
                     $push: { comments: comments },
                 }
             );
-            console.log(results.result);
             return results.result;
         } catch (ex) {
             console.log(" ------------- COMMENTS ADD ERROR")
-            return { error: ex }
+            return {
+                error: {
+                    message: "Oops, some error happened!",
+                    tip: "Check if the route is correct and create an issue first, if it doesn't exists!"
+                }
+            }
         }
     };
 

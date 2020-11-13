@@ -14,7 +14,7 @@ module.exports = () => {
                 return { projectsList: projects };
             } catch (ex) {
                 console.log(" ------------- GET PROJECTS ERROR")
-                return { error: ex }
+                return { error: "Project doesn't exists!" }
             }
         }
         try {
@@ -23,22 +23,17 @@ module.exports = () => {
             return { project: projects };
         } catch (ex) {
             console.log(" ------------- GET INDIVIDUAL PROJECTS ERROR")
-            return { error: ex }
+            return { error: "Project doesn't exists!" }
         }
     };
 
-    ////////////////////// Add new projects individually //////////////////////   
     const add = async (slug, name, description) => {
-        if (!slug || !name || !description) {
-            return { Error: "slug, name and description are required!" }
-        }
 
-        if (slug.length !== 1 || name.length !== 1 || description.length !== 1) {
-            return { Error: "slug, name and description should have at least 3 characters!" }
+        if (!name || !slug || !description) {
+            return { error: "Slug, name and description are required!" }
         }
 
         try {
-            AddProjectsValidation;
             const results = await db.add(COLLECTION, {
                 slug: slug,
                 name: name,
@@ -47,15 +42,16 @@ module.exports = () => {
 
             console.log(results.result);
             return results.result;
-        } catch (ex) {
-            console.log(" ------------- THIS SLUG ALREADY EXISTS");
-            return { Error: "This slug already exists! Try a different slug!" }
-        }
 
+        } catch (ex) {
+            console.log(" ------------- PROJECTS ADD ERROR")
+            return { error: "Slug already exists! Please, try a different slug!" }
+        }
     };
 
     return {
         get,
         add,
-    }
+    };
 };
+
