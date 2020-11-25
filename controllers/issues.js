@@ -50,7 +50,9 @@ module.exports = () => {
             if (error) {
                 return res.status(500).json({ error });
             }
-            res.json("Issue registered successfully!");
+            res.status(201).send({
+                message: "Issue registered successfully!"
+            });
 
         } catch (ex) {
             console.log(" ------------- ISSUES POSTCONTROLLER ERROR")

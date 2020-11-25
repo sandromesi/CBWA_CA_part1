@@ -12,13 +12,13 @@ module.exports = () => {
             }
             // First get user by email
             const users = await db.get(COLLECTION, { email });
-            // Then compare its hash key with the key stored in Bcrypt to allows access
+
 
             if (users.length !== 1) {
                 console.log(" ------------- 02: BAD KEY OR EMAIL");
                 return null;
             }
-
+            // Then compare its hash key with the key stored in Bcrypt to allows access
             const hash = await bcrypt.compare(key, users[0].key);
 
             return hash;
@@ -72,9 +72,20 @@ module.exports = () => {
         }
     };
 
+    ////////////////////// Authenticate user //////////////////////
+    const authenticate = async (email) => {
+        try {
+            const users = await db.get(COLLECTION, { email });
+            return { user: users };
+        } catch (ex) {
+            return { error: "User doesn't exists!" }
+        }
+    };
+
     return {
         getByKey,
         get,
         add,
+        authenticate,
     }
 }

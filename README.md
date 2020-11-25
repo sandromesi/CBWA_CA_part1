@@ -16,6 +16,7 @@ Cloud-Based Web Applications of the Higher Diploma in Science Computing Course L
 * [Author Info](#author-info)
 
 ## How To Set It Up
+To set the REST API up, you need a valid email and an key, which by the moment you can get it by email me on alessandro_m_s@hotmail.com, so I will send you a key and the instructions to how to set it up.
 
 ## Technologies
 
@@ -78,16 +79,19 @@ Cloud-Based Web Applications of the Higher Diploma in Science Computing Course L
 * {POST} `/issues/projectSlug-id/comments`
 
 ## Changelog
+###  Add Email Notification - 2020-11-25
+ 
+Now, when you add new user with a valid email, a welcome email is sent to the new user email. 
+ 
 
 ## Roadmap
 - [x] Add to All promises a reject.
 - [x] Add try-catch to await calling promises. (review)
 - [x] Add indexe to avoid duplicate users. (based on email)
 - [x] Add indexe to avoid duplicate projects. (based on SLUG)
-- [ ] Add json schema validation to avoid add items without all the fields.
-- [ ] Enhance error handling messages
-- [ ] Use bcrypt to hash the password/key for the users.
-- [ ] Add in email notifications.
+- [x] Add json schema validation to avoid add items without all the fields.
+- [x] Use bcrypt to hash the password/key for the users.
+- [x] Add in email notifications.
 - [ ] Docker-ise the application.
 - [ ] Add Updated the status of an issue route
 - [ ] Add Delete routes

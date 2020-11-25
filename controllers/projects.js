@@ -43,7 +43,9 @@ module.exports = () => {
             if (error) {
                 return res.status(500).json({ error });
             }
-            res.json("Project registered successfully!");
+            res.status(201).send({
+                message: "Project registered successfully!"
+            });
 
         } catch (ex) {
             console.log(" ------------- PROJECTS POSTCONTROLLER ERROR")

@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const hostname = '0.0.0.0';
 const port = process.env.PORT || 3000;
 
+const authService = require('./services/auth-service');
+
 const projectsController = require('./controllers/projects')();
 const issuesController = require('./controllers/issues')();
 const usersController = require('./controllers/users')();
@@ -27,10 +29,11 @@ app.use(async (req, res, next) => {
         message: "Go Away!",
         code: "xxx", //Some useful error code
     };
-    const suppliedKey = req.headers["x-api-key"];
-    const suppliedEmail = req.headers["x-api-email"];
+    const suppliedKey = req.headers["x-api-key"] || req.query.key;
+    const suppliedEmail = req.headers["x-api-email"] || req.query.email;
+
     const clientIp =
-    req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+    req.headers["x-forwarded-for"] || req.socket.remoteAddress || req.query;
 
     // Check key
     if (!suppliedKey) {
@@ -68,6 +71,16 @@ app.use(async (req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+////////////////////////////// AUTHENTICATION TEST ROUTE ////////////////////////////// 
+// Route to get a token
+app.post('/users/get-token', usersController.authController);
+
+// Route to test add new users individually for only authorized user
+app.post('/users/authenticate', authService.autorize ,usersController.authPostController);
+
+// Route to refresh user's token
+app.post('/users/refresh-token', authService.autorize ,usersController.refreshController);
 
 //////////////////////////////////// HOME //////////////////////////////////// 
 

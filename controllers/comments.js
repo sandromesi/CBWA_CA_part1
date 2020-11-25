@@ -53,7 +53,9 @@ module.exports = () => {
             }
 
         } catch (ex) {
-            res.json("Comment registered successfully!");
+            res.status(201).send({
+                message: "Comment registered successfully!"
+            });
             console.log(" ------------- RESULT IS UNDEFINED, BUT IT'S FINE!")
             return { error: ex }
         }
