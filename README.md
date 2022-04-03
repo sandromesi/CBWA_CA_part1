@@ -106,6 +106,6 @@ Now, when you add new user with a valid email, a welcome email is sent to the ne
 ## Author Info
 Created by [Alessandro Siqueira](alessandro_m_s@hotmail.com) - feel free to contact me!
 
-LinkedIn: [Click Me!](https://www.linkedin.com/in/alessandro-siqueira-b0a90754/)
+LinkedIn: [Click Me!](https://www.linkedin.com/in/sandromesi/)
 
-Email: [alessandro_m_s@hotmail.com](alessandro_m_s@hotmail.com)
+Email: [sandromesi@gmail.com](sandromesi@gmail.com)
